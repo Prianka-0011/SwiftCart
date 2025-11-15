@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+      "name": "Local",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/src/SwiftCart.Backend/SwiftCart.API/bin/Debug/net8.0/SwiftCart.API.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/SwiftCart.Backend/SwiftCart.API",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "DB_HOST": "localhost",
+        "DB_PORT": "1433",
+        "DB_NAME": "SwiftCartDb",
+        "DB_USER": "sa",
+        "DB_PASS": "SwiftCart123!",
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
+    }
+  ]
+}

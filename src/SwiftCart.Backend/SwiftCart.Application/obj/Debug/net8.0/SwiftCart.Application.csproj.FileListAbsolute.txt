@@ -1,0 +1,12 @@
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Application\bin\Debug\net8.0\SwiftCart.Application.deps.json
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Application\bin\Debug\net8.0\SwiftCart.Application.dll
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Application\bin\Debug\net8.0\SwiftCart.Application.pdb
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Application\obj\Debug\net8.0\SwiftCart.Application.csproj.AssemblyReference.cache
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Application\obj\Debug\net8.0\SwiftCart.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Application\obj\Debug\net8.0\SwiftCart.Application.AssemblyInfoInputs.cache
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Application\obj\Debug\net8.0\SwiftCart.Application.AssemblyInfo.cs
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Application\obj\Debug\net8.0\SwiftCart.Application.csproj.CoreCompileInputs.cache
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Application\obj\Debug\net8.0\SwiftCart.Application.dll
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Application\obj\Debug\net8.0\refint\SwiftCart.Application.dll
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Application\obj\Debug\net8.0\SwiftCart.Application.pdb
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Application\obj\Debug\net8.0\ref\SwiftCart.Application.dll

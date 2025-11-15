@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  database-swift-cart-mart:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: swift-cart-sql
+    environment:
+      SA_PASSWORD: "SwiftCart123!"
+      MSSQL_DB: "SwiftCartDb"  
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    networks:
+      - swift-cart-network
+
+  
