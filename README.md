@@ -44,6 +44,7 @@ dotnet new classlib -n SwiftCart.Domain -o src/SwiftCart.Backend/SwiftCart.Domai
 # ⚙️ Application Layer
 dotnet new classlib -n SwiftCart.Application -o src/SwiftCart.Backend/SwiftCart.Application
 cd src/SwiftCart.Backend/SwiftCart.Application
+dotnet add reference ../SwiftCart.Domain/SwiftCart.Domain.csproj
 dotnet add package MediatR
 dotnet add package AutoMapper
 cd ../../..

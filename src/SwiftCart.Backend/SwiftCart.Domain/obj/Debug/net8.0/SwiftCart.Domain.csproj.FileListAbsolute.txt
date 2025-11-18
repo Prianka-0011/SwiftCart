@@ -5,6 +5,7 @@ D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Domain\obj\Debug\net8.0\SwiftCart.D
 D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Domain\obj\Debug\net8.0\SwiftCart.Domain.AssemblyInfoInputs.cache
 D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Domain\obj\Debug\net8.0\SwiftCart.Domain.AssemblyInfo.cs
 D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Domain\obj\Debug\net8.0\SwiftCart.Domain.csproj.CoreCompileInputs.cache
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Domain\obj\Debug\net8.0\SwiftCart.Domain.sourcelink.json
 D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Domain\obj\Debug\net8.0\SwiftCart.Domain.dll
 D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Domain\obj\Debug\net8.0\refint\SwiftCart.Domain.dll
 D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Domain\obj\Debug\net8.0\SwiftCart.Domain.pdb

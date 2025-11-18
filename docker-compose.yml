@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   database-swift-cart-mart:
     image: mcr.microsoft.com/mssql/server:2022-latest
@@ -12,7 +10,6 @@ services:
       - "1433:1433"
     volumes:
       - sql_data:/var/opt/mssql
-    networks:
-      - swift-cart-network
 
-  
+volumes:
+  sql_data:

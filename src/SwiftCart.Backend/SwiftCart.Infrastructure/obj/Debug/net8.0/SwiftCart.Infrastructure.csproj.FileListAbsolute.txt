@@ -11,6 +11,7 @@ D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Infrastructure\obj\Debug\net8.0\Swi
 D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Infrastructure\obj\Debug\net8.0\SwiftCart.Infrastructure.AssemblyInfoInputs.cache
 D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Infrastructure\obj\Debug\net8.0\SwiftCart.Infrastructure.AssemblyInfo.cs
 D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Infrastructure\obj\Debug\net8.0\SwiftCart.Infrastructure.csproj.CoreCompileInputs.cache
+D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Infrastructure\obj\Debug\net8.0\SwiftCart.Infrastructure.sourcelink.json
 D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Infrastructure\obj\Debug\net8.0\SwiftCar.2D3E800D.Up2Date
 D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Infrastructure\obj\Debug\net8.0\SwiftCart.Infrastructure.dll
 D:\SwiftCart\src\SwiftCart.Backend\SwiftCart.Infrastructure\obj\Debug\net8.0\refint\SwiftCart.Infrastructure.dll
