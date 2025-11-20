@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {
+    "net9.0": {
       "AutoMapper/12.0.1": {
         "type": "package",
         "dependencies": {
@@ -31,7 +31,7 @@
           "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
-      "MediatR/12.0.1": {
+      "MediatR/12.1.0": {
         "type": "package",
         "dependencies": {
           "MediatR.Contracts": "[2.0.1, 3.0.0)",
@@ -153,7 +153,7 @@
       },
       "SwiftCart.Domain/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
+        "framework": ".NETCoreApp,Version=v9.0",
         "compile": {
           "bin/placeholder/SwiftCart.Domain.dll": {}
         },
@@ -193,10 +193,10 @@
         "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
       ]
     },
-    "MediatR/12.0.1": {
-      "sha512": "vfxplMielft+g5jxGO31xjjQpI6yqe4r2YGt0Q8x23phwbpJNmUQGY+cCNNFMKKViXRM67ajUlAiwirMeuJWTQ==",
+    "MediatR/12.1.0": {
+      "sha512": "J7L7shGumCxXvRvrNADH/XbbbF7fStNBWlvyugZaWMVdSeE/L47pPXWJzZRl/JbUjjospOu7xz3n7qH1VzHl5g==",
       "type": "package",
-      "path": "mediatr/12.0.1",
+      "path": "mediatr/12.1.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -205,7 +205,7 @@
         "lib/net6.0/MediatR.xml",
         "lib/netstandard2.0/MediatR.dll",
         "lib/netstandard2.0/MediatR.xml",
-        "mediatr.12.0.1.nupkg.sha512",
+        "mediatr.12.1.0.nupkg.sha512",
         "mediatr.nuspec"
       ]
     },
@@ -412,49 +412,41 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net8.0": [
+    "net9.0": [
       "AutoMapper >= 12.0.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
-      "MediatR >= 12.0.1",
+      "MediatR >= 12.1.0",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 11.1.0",
       "SwiftCart.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pmondal\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SwiftCart\\src\\SwiftCart.Backend\\SwiftCart.Application\\SwiftCart.Application.csproj",
+      "projectUniqueName": "P:\\SwiftCart\\src\\SwiftCart.Backend\\SwiftCart.Application\\SwiftCart.Application.csproj",
       "projectName": "SwiftCart.Application",
-      "projectPath": "D:\\SwiftCart\\src\\SwiftCart.Backend\\SwiftCart.Application\\SwiftCart.Application.csproj",
-      "packagesPath": "C:\\Users\\pmondal\\.nuget\\packages\\",
-      "outputPath": "D:\\SwiftCart\\src\\SwiftCart.Backend\\SwiftCart.Application\\obj\\",
+      "projectPath": "P:\\SwiftCart\\src\\SwiftCart.Backend\\SwiftCart.Application\\SwiftCart.Application.csproj",
+      "packagesPath": "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\",
+      "outputPath": "P:\\SwiftCart\\src\\SwiftCart.Backend\\SwiftCart.Application\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\pmondal\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Rafikul Islam Hriday\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net8.0"
+        "net9.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net8.0": {
-          "targetAlias": "net8.0",
+        "net9.0": {
+          "targetAlias": "net9.0",
           "projectReferences": {
-            "D:\\SwiftCart\\src\\SwiftCart.Backend\\SwiftCart.Domain\\SwiftCart.Domain.csproj": {
-              "projectPath": "D:\\SwiftCart\\src\\SwiftCart.Backend\\SwiftCart.Domain\\SwiftCart.Domain.csproj"
+            "P:\\SwiftCart\\src\\SwiftCart.Backend\\SwiftCart.Domain\\SwiftCart.Domain.csproj": {
+              "projectPath": "P:\\SwiftCart\\src\\SwiftCart.Backend\\SwiftCart.Domain\\SwiftCart.Domain.csproj"
             }
           }
         }
@@ -468,11 +460,12 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
-      "net8.0": {
-        "targetAlias": "net8.0",
+      "net9.0": {
+        "targetAlias": "net9.0",
         "dependencies": {
           "AutoMapper": {
             "target": "Package",
@@ -484,7 +477,7 @@
           },
           "MediatR": {
             "target": "Package",
-            "version": "[12.0.1, )"
+            "version": "[12.1.0, )"
           },
           "MediatR.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
@@ -507,7 +500,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -516,10 +509,10 @@
       "code": "NU1608",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Detected package version outside of dependency constraint: MediatR.Extensions.Microsoft.DependencyInjection 11.1.0 requires MediatR (>= 11.0.0 && < 12.0.0) but version MediatR 12.0.1 was resolved.",
+      "message": "Detected package version outside of dependency constraint: MediatR.Extensions.Microsoft.DependencyInjection 11.1.0 requires MediatR (>= 11.0.0 && < 12.0.0) but version MediatR 12.1.0 was resolved.",
       "libraryId": "MediatR",
       "targetGraphs": [
-        "net8.0"
+        "net9.0"
       ]
     }
   ]
