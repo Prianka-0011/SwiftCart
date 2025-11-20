@@ -76,6 +76,7 @@ namespace SwiftCart.Infrastructure
             // Register other services, repositories, etc.
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITestRepository, TestRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             return services;
         }

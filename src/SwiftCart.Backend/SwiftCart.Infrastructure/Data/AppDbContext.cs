@@ -24,6 +24,9 @@ namespace EmotiaMart.Infrastructure.Data
          public DbSet<Test> Tests { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Address> Addresses { get; set; } = null!;
+        public DbSet<Category>  Categories { get; set; } = null!;
+        public DbSet<Product>  Products { get; set; } = null!;
+
 
     }
 }

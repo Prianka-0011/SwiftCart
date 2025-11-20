@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace SwiftCart.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251119233336_Initialcreate")]
-    partial class Initialcreate
+    [Migration("20251120213655_DropOldFeaturesTable")]
+    partial class DropOldFeaturesTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
