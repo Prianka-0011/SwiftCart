@@ -20,7 +20,7 @@ public class UserRepository(AppDbContext context) : IUserRepository
     public async Task<User?> GetUserByEmailAsync(string email)
     {
         return await _context.Users
-            .Include(u => u.Addresses)
+            .Include(x => x.Addresses)
             .FirstOrDefaultAsync(x => x.Email == email);
     }
 

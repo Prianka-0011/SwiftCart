@@ -1,6 +1,8 @@
+ 
 namespace SwiftCart.Domain.Entities 
+
 {
-    public class User
+    public class User 
     {
         public Guid Id { get; set; }
         public string Username { get; set; } = string.Empty;
@@ -9,6 +11,7 @@ namespace SwiftCart.Domain.Entities
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
         public List<Address> Addresses { get; set; } = [];
+        
     }
     
 }

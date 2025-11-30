@@ -19,7 +19,11 @@ public class Product
     public int StockQuantity { get; set; }
 
     public Guid CategoryId { get; set; }
-    public Category Category { get; set; }
+    public required Category Category { get; set; }
+    public string? Color { get; set; }
+    public string? Size { get; set; }
+    public string? Weight { get; set; }
+    public bool IsActive { get; set; } = true;
 
     public List<ProductImage> Images { get; set; } = [];
     public List<ProductReview> Reviews { get; set; } = [];
@@ -33,7 +37,7 @@ public class ProductImage
     public string ImageUrl { get; set; } = string.Empty;
     public bool IsPrimary { get; set; }
 
-    public Product Product { get; set; }
+    public required Product Product { get; set; }
 }
 
 public class ProductReview
@@ -48,6 +52,6 @@ public class ProductReview
 
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public Product Product { get; set; }
-    public User User { get; set; }
+    public required Product Product { get; set; }
+    public required User User { get; set; }
 }

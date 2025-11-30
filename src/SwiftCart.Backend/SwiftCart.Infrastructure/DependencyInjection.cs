@@ -2,9 +2,11 @@ using EmotiaMart.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SwiftCart.Application.Interfaces;
 using SwiftCart.Application.Interfaces.Repositories;
 using SwiftCart.Domain.Entities;
 using SwiftCart.Infrastructure.Repositories;
+using SwiftCart.Infrastructure.Services;
 
 
 namespace SwiftCart.Infrastructure
@@ -77,6 +79,10 @@ namespace SwiftCart.Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITestRepository, TestRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IFileService, LocalFileService>();
+
+            
 
             return services;
         }
