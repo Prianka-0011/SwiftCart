@@ -24,7 +24,8 @@ static void UpdateDatabase(IApplicationBuilder app)
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
-builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpContextAccessor();
+ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
@@ -54,11 +55,12 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseGlobalExceptionHandler();
 app.UseHttpsRedirection();
 
- 
 
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
- 
+
 
 app.Run();
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)

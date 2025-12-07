@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "DG0Zk2TICkU=",
+  "dgSpecHash": "Tb9itnKFCAw=",
   "success": true,
   "projectFilePath": "P:\\SwiftCart\\src\\SwiftCart.Backend\\SwiftCart.Application\\SwiftCart.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\mediatr\\12.1.0\\mediatr.12.1.0.nupkg.sha512",
     "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\11.1.0\\mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",

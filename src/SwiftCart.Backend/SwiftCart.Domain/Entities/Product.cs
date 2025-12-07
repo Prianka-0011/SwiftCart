@@ -40,18 +40,4 @@ public class ProductImage
     public required Product Product { get; set; }
 }
 
-public class ProductReview
-{
-    public Guid Id { get; set; }
-
-    public Guid ProductId { get; set; }
-    public Guid UserId { get; set; }
-
-    public int Rating { get; set; }
-    public string Comment { get; set; } = string.Empty;
-
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    public required Product Product { get; set; }
-    public required User User { get; set; }
-}
+ 

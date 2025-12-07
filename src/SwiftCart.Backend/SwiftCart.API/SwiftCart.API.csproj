@@ -24,4 +24,8 @@
     <ProjectReference Include="..\SwiftCart.Infrastructure\SwiftCart.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

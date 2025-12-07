@@ -1,17 +1,20 @@
 using System.Text.Json;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SwiftCart.Application.Dto;
 using SwiftCart.Application.Interfaces.Repositories;
 using SwiftCart.Application.Mappings;
+using SwiftCart.Application.Users.Commands;
 using SwiftCart.Domain.Entities;
 
 namespace SwiftCart.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController(IUserRepository repo) : ControllerBase
+    public class UserController(IUserRepository repo, IMediator mediator) : ControllerBase
     {
         private readonly IUserRepository _repo = repo;
+        private readonly IMediator _mediator = mediator;
 
         [HttpPost("register")]
         public async Task<ActionResult<User>> RegisterUser(User user)
@@ -20,6 +23,8 @@ namespace SwiftCart.API.Controllers
                 return BadRequest("Invalid user payload.");
 
             var existing = await _repo.GetUserByEmailAsync(user.Email);
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
+            user.PasswordHash = hashedPassword;
             if (existing != null)
             {
                 return BadRequest("User already registered.");
@@ -100,6 +105,35 @@ namespace SwiftCart.API.Controllers
             }
 
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
+        {
+            try
+            {
+                var token = await _mediator.Send(command);
+
+                // Secure Cookie Options
+                var cookieOptions = new CookieOptions
+                {
+                    HttpOnly = true,
+                    // For local development use false so browsers will send the cookie over HTTP.
+                    // Set to true in production and serve over HTTPS.
+                    Secure = false,
+                    SameSite = SameSiteMode.Strict,
+                    Expires = DateTime.UtcNow.AddHours(1)
+                };
+
+                Response.Cookies.Append("jwt", token, cookieOptions);
+
+                return Ok(new { Message = "Login Successful" });
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return Unauthorized("Invalid Email or Password");
+            }
+        }
+    
 
     }
 }

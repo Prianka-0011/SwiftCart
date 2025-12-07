@@ -12,3 +12,8 @@ public interface IUserRepository
     Task<bool> SaveChangeAsync();
     
 }
+
+   public interface IJwtTokenGenerator
+    {
+        string GenerateToken(User user);
+    }

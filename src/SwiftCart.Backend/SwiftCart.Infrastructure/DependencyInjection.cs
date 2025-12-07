@@ -1,7 +1,12 @@
+using System.Text;
 using EmotiaMart.Infrastructure.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;  
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens; // Required for Token Validation
 using SwiftCart.Application.Interfaces;
 using SwiftCart.Application.Interfaces.Repositories;
 using SwiftCart.Domain.Entities;
@@ -45,6 +50,51 @@ namespace SwiftCart.Infrastructure
                 );
             });
 
+
+            var jwtSettings = configuration.GetSection("JwtSettings");
+            var secretKey = jwtSettings["Secret"];
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                 options.RequireHttpsMetadata = false;
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings["Issuer"],
+                    ValidAudience = jwtSettings["Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!))
+                };
+
+                 options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        // Prefer cookie token
+                        var token = context.Request?.Cookies["jwt"] ?? context.Request?.Cookies["access_token"];
+
+                        if (!string.IsNullOrEmpty(token))
+                        {
+                            context.Token = token;
+                        }
+
+                         return Task.CompletedTask;
+                    }
+                };
+            });
+
+           
+
+            
+
             // Quartz setup
             // services.AddQuartz(q =>
             // {
@@ -80,8 +130,13 @@ namespace SwiftCart.Infrastructure
             services.AddScoped<ITestRepository, TestRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IFileService, LocalFileService>();
-
+            services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddScoped<IUserContextService,  UserContextService>();
+            services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IReviewRepository, ReviewRepository>();
             
 
             return services;
