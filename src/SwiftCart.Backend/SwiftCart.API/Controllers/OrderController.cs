@@ -8,6 +8,7 @@ using SwiftCart.Application.Orders.Commands;
 using SwiftCart.Application.Orders.Dto;
 using SwiftCart.Application.Orders.Queries;
 using SwiftCart.Application.Interfaces;
+using SwiftCart.Domain.Entities;
 
 namespace SwiftCart.API.Controllers;
 
@@ -18,17 +19,7 @@ public class OrderController(IMediator mediator, IUserContextService userContext
     private readonly IMediator _mediator = mediator;
     private readonly IUserContextService _userContext = userContext;
 
-    [HttpPost]
-    [Authorize]
-    public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto orderDto)
-    {
-        if (orderDto == null) return BadRequest("Invalid order payload.");
-
-        if (!_userContext.TryGetUserId(out var userId)) return Unauthorized();
-
-        var newId = await _mediator.Send(new CreateOrderCommand { UserId = userId, Order = orderDto });
-        return CreatedAtAction(nameof(GetOrderById), new { id = newId }, new { id = newId });
-    }
+    
 
     [HttpGet]
     [Authorize]
@@ -54,5 +45,47 @@ public class OrderController(IMediator mediator, IUserContextService userContext
         return Ok(order);
     }
 
+    [HttpGet("admin/{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetOrderByAdmin(Guid id)
+    {
+        if (!_userContext.TryGetUserId(out var userId)) return Unauthorized();
 
+        var order = await _mediator.Send(new GetOrderByIdQuery { OrderId = id });
+        if (order == null) return NotFound();
+
+    
+
+        return Ok(order);
+    }
+
+    [HttpGet("all")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetAllOrders()
+    {
+        var orders = await _mediator.Send(new GetOrdersQuery());
+        return Ok(orders);
+    }
+
+
+    [HttpPost("initiate")]
+    [Authorize]
+    public async Task<ActionResult<CheckoutResponseDto>> InitiateCheckout(InitiateCheckoutDto input)
+    {
+        if (!_userContext.TryGetUserId(out var userId)) return Unauthorized();
+
+        var result = await _mediator.Send(new InitiateCheckoutCommand { UserId = userId, CheckoutDetails = input });
+        return Ok(result);
+
+    }
+
+    [HttpPost("confirm-payment")]
+public async Task<ActionResult> ConfirmPayment(ConfirmPaymentDto input)
+{
+    if (!_userContext.TryGetUserId(out var userId)) return Unauthorized();
+
+    await _mediator.Send(new ConfirmPaymentCommand {    OrderId = input.OrderId, TransactionId = input.TransactionId });
+    return Ok();
+    
+}
 }

@@ -1,0 +1,29 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-slate-200 p-8 space-y-6 mt-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+            <label for="name" class="block text-sm font-medium text-slate-700 mb-2">Name <samp class="text-red-500">*</samp></label>
+            <input type="text" name="name" id="name" formControlName="name" class="block w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition" />
+        </div>
+          <div>
+        <label for="parentCategoryId" class="block text-sm font-medium text-slate-700 mb-2">Parent Category</label>
+        <select name="parentCategoryId" id="parentCategoryId" formControlName="parentCategoryId" class="block w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition">
+            <option value="" disabled selected>Select parent category</option>
+            @for(opt of options; track opt.id){
+                <option [value]="opt.id">{{opt.name}}</option>
+            }
+        </select>
+    </div>
+  </div>
+
+        <div>
+            <label for="description" class="block text-sm font-medium text-slate-700 mb-2">Description <samp class="text-red-500">*</samp></label>
+            <input type="text" name="description" id="description" formControlName="description" class="block h-16 w-full rounded-lg border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition" />
+        </div>
+  
+  
+
+    <div class="flex items-center justify-end">
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-5 py-2.5 rounded-md shadow">Create Category</button>
+    </div>
+
+</form>

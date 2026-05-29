@@ -1,7 +1,7 @@
 using System;
 using AutoMapper;
 using MediatR;
- 
+
 using SwiftCart.Application.Dto;
 using SwiftCart.Application.Interfaces;
 using SwiftCart.Application.Interfaces.Repositories;
@@ -22,27 +22,27 @@ public class CreateProductCommand : IRequest<Guid>
         public async Task<Guid> Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
             var entity = _mapper.Map<Product>(request.Product);
-          if (request.Product.ImageFiles != null && request.Product.ImageFiles.Count > 0)
-    {
-        foreach (var file in request.Product.ImageFiles)
-        {
-            // 1. Upload file
-            string path = await _fileService.SaveFileAsync(file, "products");
-
-            // 2. Create Entity
-            var img = new ProductImage
+            if (request.Product.ImageFiles != null && request.Product.ImageFiles.Count > 0)
             {
-                ImageUrl = path,
-                Product = entity,
-                // Logic: Make the first image primary, others secondary
-                IsPrimary = entity.Images.Count == 0 
-            };
+                foreach (var file in request.Product.ImageFiles)
+                {
+                    // 1. Upload file
+                    string path = await _fileService.SaveFileAsync(file, "products");
 
-            entity.Images.Add(img);
-        }
-    }
+                    // 2. Create Entity
+                    var img = new ProductImage
+                    {
+                        ImageUrl = path,
+                        Product = entity,
+                        // Logic: Make the first image primary, others secondary
+                        IsPrimary = entity.Images.Count == 0
+                    };
+
+                    entity.Images.Add(img);
+                }
+            }
             var newId = await _repo.CreateProductAsync(entity);
-            return  newId;
+            return newId;
         }
     }
 }

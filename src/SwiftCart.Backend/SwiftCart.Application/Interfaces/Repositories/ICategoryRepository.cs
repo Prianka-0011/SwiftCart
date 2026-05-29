@@ -7,5 +7,6 @@ public interface ICategoryRepository
 {
     Task<Category?> CreateCategoryAsync(Category category);
     Task<Category?> GetCategoryByNameAsync(string name);
+    Task<IReadOnlyList<Category>> GetAllCategoriesAsync();
     Task<bool> CategoryExist(string name);
 }

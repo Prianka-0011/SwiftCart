@@ -1,7 +1,7 @@
 using System;
 
 namespace SwiftCart.Application.Reviews.Dto;
- 
+
 
 public class AddReviewDto
 {
@@ -13,9 +13,10 @@ public class AddReviewDto
 public class ReviewDto
 {
     public Guid Id { get; set; }
-    public Guid UserId { get; set; }
-    public string UserName { get; set; } = string.Empty;
     public int Rating { get; set; }
     public string Comment { get; set; } = string.Empty;
-    public DateTime CreatedAt { get; set; }
+    public Guid UserId { get; set; }
+    public string Username { get; set; } = string.Empty;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
 }

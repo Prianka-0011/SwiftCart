@@ -39,20 +39,40 @@ namespace SwiftCart.Application.Cart.Commands
                     var existingItem = cart.Items.FirstOrDefault(i => i.ProductId == itemDto.ProductId);
                     if (existingItem != null)
                     {
-                        existingItem.Quantity = itemDto.Quantity;
-                        existingItem.UnitPrice = itemDto.UnitPrice;
+                        // If quantity is zero or negative, remove the item
+                        if (itemDto.Quantity <= 0)
+                        {
+                            cart.Items.Remove(existingItem);
+                        }
+                        else
+                        {
+                            existingItem.Quantity = itemDto.Quantity;
+                            existingItem.UnitPrice = itemDto.UnitPrice;
+                        }
                     }
                     else
                     {
-                        cart.Items.Add(new SwiftCart.Domain.Entities.CartItem
+                        // Only add new items with positive quantity
+                        if (itemDto.Quantity > 0)
                         {
-                            ProductId = itemDto.ProductId,
-                            Quantity = itemDto.Quantity,
-                            UnitPrice = itemDto.UnitPrice,
-                            Cart = cart,
-                            Product = null!
-                        });
+                            cart.Items.Add(new SwiftCart.Domain.Entities.CartItem
+                            {
+                                ProductId = itemDto.ProductId,
+                                Quantity = itemDto.Quantity,
+                                UnitPrice = itemDto.UnitPrice,
+                                Cart = cart,
+                                Product = null!
+                            });
+                        }
                     }
+                }
+
+                // Remove any items that are not present in the incoming cart (this makes the update a full replace)
+                var requestedIds = request.Cart.Items.Select(i => i.ProductId).ToHashSet();
+                var toRemove = cart.Items.Where(ci => !requestedIds.Contains(ci.ProductId)).ToList();
+                foreach (var rem in toRemove)
+                {
+                    cart.Items.Remove(rem);
                 }
 
                 await _repo.SaveChangesAsync();

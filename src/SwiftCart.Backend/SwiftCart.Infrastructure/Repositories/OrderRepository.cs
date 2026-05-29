@@ -18,10 +18,14 @@ public class OrderRepository(AppDbContext context) : IOrderRepository
     }
 
     public async Task<List<Order>> GetOrdersByUserIdAsync(Guid userId)
-    {
-        return await _context.Orders
+    { 
+        var query = _context.Orders.AsQueryable();
+        query = query.Where(o => o.UserId == userId);   
+        query = query.OrderByDescending(o => o.CreatedAt);
+        return await  query
             .Include(o => o.Items)
-            .Where(o => o.UserId == userId)
+            .ThenInclude(i => i.Product)
+            .ThenInclude(p => p.Images)
             .ToListAsync();
     }
 
@@ -29,14 +33,34 @@ public class OrderRepository(AppDbContext context) : IOrderRepository
     {
         return await _context.Orders
             .Include(o => o.Items)
+            .ThenInclude(i => i.Product)
+            .ThenInclude(p => p.Images)
             .FirstOrDefaultAsync(o => o.Id == orderId);
     }
 
     public async Task<List<Order>> GetAllOrdersAsync()
     {
-        return await _context.Orders.ToListAsync();
+        return await _context.Orders
+            .OrderByDescending(o => o.CreatedAt)
+            .ToListAsync();
     }
 
+    public async Task UpdateOrderAsync(Order order)
+    {
+        _context.Orders.Update(order);
+        await _context.SaveChangesAsync();
+    }
+
+    public void InitiateCheckout(Order order)
+    {
+         _context.Orders.Add(order);
+         _context.SaveChanges();
+    }
+
+    public void ConfirmPayment(Order order)
+    {
+            _context.Orders.Update(order);
+            _context.SaveChanges();
+        }
 }
 
- 

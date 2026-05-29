@@ -12,6 +12,7 @@ using SwiftCart.Application.Interfaces.Repositories;
 using SwiftCart.Domain.Entities;
 using SwiftCart.Infrastructure.Repositories;
 using SwiftCart.Infrastructure.Services;
+using SwiftCart.Application.Interfaces.Services;
 
 
 namespace SwiftCart.Infrastructure
@@ -137,6 +138,9 @@ namespace SwiftCart.Infrastructure
             services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IPaymentService,  PaymentService>();
+            services.AddAuthorization();
             
 
             return services;

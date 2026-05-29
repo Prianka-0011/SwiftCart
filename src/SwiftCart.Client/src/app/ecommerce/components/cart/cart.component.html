@@ -1,0 +1,23 @@
+<section class="container mx-auto px-4">
+  <div *ngIf="(cartService.cart()?.items?.length || 0) > 0; else empty">
+    <div class="flex w-full items-start gap-5 mt-12">
+      <div class="w-3/4">
+        <ng-container *ngFor="let item of (cartService.cart()?.items || []); trackBy: trackByProduct">
+          <app-cart-item [item]="item"></app-cart-item>
+        </ng-container>
+      </div>
+      <div class="w-1/4">
+        <app-order-summary></app-order-summary>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #empty>
+    <app-empty-state
+      message="Your cart is empty"
+      icon="remove_shopping_cart"
+      actionText="Go to shop"
+      (action)="onAction()"
+    />
+  </ng-template>
+</section>

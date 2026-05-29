@@ -1,0 +1,70 @@
+<div class="max-w-2xl mx-auto p-4 bg-white rounded shadow">
+  <h2 class="text-2xl font-semibold mb-4">Create Product</h2>
+
+  <form (ngSubmit)="submit()" [formGroup]="form" class="space-y-4">
+    <div>
+      <label class="block text-sm font-medium">Name</label>
+      <input formControlName="name" class="mt-1 block w-full border rounded px-3 py-2" />
+    </div>
+    <div>
+      <label class="block text-sm font-medium">SKU</label>
+      <input formControlName="sku" class="mt-1 block w-full border rounded px-3 py-2" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium">Description</label>
+      <textarea formControlName="description" rows="3" class="mt-1 block w-full border rounded px-3 py-2"></textarea>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium">Price</label>
+        <input type="number" formControlName="price" class="mt-1 block w-full border rounded px-3 py-2" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Discount Price</label>
+        <input type="number" formControlName="discountPrice" class="mt-1 block w-full border rounded px-3 py-2" />
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium">Stock Quantity</label>
+        <input type="number" formControlName="stockQuantity" class="mt-1 block w-full border rounded px-3 py-2" />
+      </div>
+      <div>
+  <label class="block text-sm font-medium">Category</label>
+  
+  <select formControlName="categoryId" class="mt-1 block w-full border rounded px-3 py-2">
+    <option [ngValue]="null">Select a category</option>
+    <option *ngFor="let c of categories" [ngValue]="c.id">
+      {{ c.name }}
+    </option>
+  </select>
+</div>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium mb-2">Images</label>
+      <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition">
+      <input type="file" (change)="onFilesSelected($event)" multiple accept="image/*" class="hidden" #fileInput />
+      <button type="button" (click)="fileInput.click()" class="text-blue-600 hover:text-blue-800 font-medium">
+        Click to upload images
+      </button>
+      </div>
+
+      <div class="mt-4 grid grid-cols-3 gap-4">
+      <div *ngFor="let p of imagePreviews; let i = index" class="relative group">
+        <img [src]="p.dataUrl" alt="preview" class="w-full h-32 object-cover rounded-lg shadow" />
+        <button type="button" (click)="removeImage(i)" class="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-7 h-7 flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition">
+        &times;
+        </button>
+      </div>
+      </div>
+    </div>
+
+    <div class="pt-4">
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Create Product</button>
+    </div>
+  </form>
+</div>

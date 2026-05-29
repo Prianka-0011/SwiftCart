@@ -43,7 +43,11 @@ public class GetUserOrdersQuery : IRequest<List<OrderDto>>
                     ProductId = i.ProductId,
                     ProductName = i.Product?.Name ?? string.Empty,
                     Quantity = i.Quantity,
-                    UnitPrice = i.UnitPrice
+                    UnitPrice = i.UnitPrice,
+                     Images = i.Product != null
+                        ? (i.Product.Images != null ? i.Product.Images.Select(img => img.ImageUrl).ToList() : new List<string>())
+                        : new List<string>()    
+
                 }).ToList()
             }).ToList();
         }

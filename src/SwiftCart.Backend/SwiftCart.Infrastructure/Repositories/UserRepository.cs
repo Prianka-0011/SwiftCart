@@ -46,6 +46,13 @@ public class UserRepository(AppDbContext context) : IUserRepository
         return await  _context.SaveChangesAsync() > 0;
     }
 
+    public async Task<User?> GetUserByIdAsync(Guid userId)
+    {
+        return await _context.Users
+            
+            .FirstOrDefaultAsync(x => x.Id == userId);
+    }
+
      
 }
 

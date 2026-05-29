@@ -1,0 +1,161 @@
+<div class="p-4 sm:p-8 bg-slate-50 min-h-screen">
+
+  @if (order) {
+
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      
+      <div>
+        <div class="flex items-center gap-3">
+          <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Order #{{ order.orderNumber }}</h1>
+          
+          <span class="px-3 py-1 rounded-full text-xs font-semibold border uppercase tracking-wide"
+                [ngClass]="getStatusStyles(order.orderStatus)">
+            {{ order.orderStatus }}
+          </span>
+        </div>
+        
+        <div class="text-gray-500 mt-1 flex items-center gap-2 text-sm font-medium">
+          <mat-icon class="!w-4 !h-4 !text-base leading-none">calendar_today</mat-icon>
+          <span>{{ order.createdAt | date:'medium' }}</span>
+          <span class="text-gray-500">|</span>
+          <span>ID: {{ order.id }}</span>
+        </div>
+      </div>
+
+       
+    </div>
+
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <div class="lg:col-span-2 space-y-6">
+        
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+          <div class="px-6 py-4 border-b border-slate-100 bg-slate-50/50 flex justify-between items-center">
+            <h3 class="font-semibold text-gray-800">Order Items</h3>
+            <span class="text-xs font-medium bg-white border border-slate-200 px-2 py-1 rounded text-gray-500">
+              {{ order.items.length }} Items
+            </span>
+          </div>
+          
+          <div class="divide-y divide-slate-100">
+            @for (item of order.items; track item.productId) {
+              <div class="p-6 flex flex-col sm:flex-row items-start gap-6 hover:bg-slate-50/50 transition-colors">
+                
+                <div class="w-20 h-20 bg-white rounded-lg border border-slate-200 p-1 flex-shrink-0">
+                  <img [src]="item.images?.[0] || 'assets/placeholder.png'" 
+                       class="w-full h-full object-contain rounded" 
+                       alt="Product">
+                </div>
+
+                <div class="flex-1 min-w-0">
+                  <h4 class="text-base font-semibold text-gray-900 leading-tight">{{ item.productName }}</h4>
+                  <p class="text-sm text-gray-600 mt-1 font-mono">SKU: {{ item.productId }}</p>
+                </div>
+
+                <div class="text-right flex-shrink-0">
+                  <div class="font-bold text-gray-900 text-lg">{{ item.lineTotal | currency }}</div>
+                  <div class="text-sm text-gray-600 mt-1">
+                    {{ item.quantity }} x {{ item.unitPrice | currency }}
+                  </div>
+                </div>
+
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 px-6 py-2">
+            <div class="mt-4 pb-4 border-t border-slate-100 flex justify-between sm:justify-end items-center gap-3">
+               <span class="text-gray-500 text-sm">Payment Status:</span>
+               <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase ring-1 ring-inset"
+                      [ngClass]="getPaymentStyles(order.paymentStatus)">
+                  {{ order.paymentStatus }}
+               </span>
+            </div>
+            <div class="flex flex-col sm:flex-row items-center justify-end gap-6 sm:gap-10 text-sm">
+                
+                <div class="flex flex-col items-end w-full sm:w-auto">
+                    <span class="text-gray-500 text-xs uppercase tracking-wide">Subtotal</span>
+                    <span class="font-medium text-gray-900 text-lg">{{ order.subTotal | currency }}</span>
+                </div>
+                
+                <div class="hidden sm:block h-10 w-px bg-slate-200"></div>
+
+                <div class="flex flex-col items-end w-full sm:w-auto">
+                    <span class="text-gray-500 text-xs uppercase tracking-wide">Shipping</span>
+                    <span class="font-medium text-gray-900 text-lg">{{ order.shippingCost | currency }}</span>
+                </div>
+
+                 <div class="hidden sm:block h-10 w-px bg-slate-200"></div>
+
+                <div class="flex flex-col items-end w-full sm:w-auto">
+                    <span class="text-gray-500 text-xs uppercase tracking-wide">Tax</span>
+                    <span class="font-medium text-gray-900 text-lg">{{ order.taxAmount | currency }}</span>
+                </div>
+
+                <div class="flex flex-col items-end w-full sm:w-auto bg-slate-50 px-6 py-3 rounded-lg border border-slate-100 sm:ml-4">
+                    <span class="text-indigo-600 font-bold text-xs uppercase tracking-wider">Total</span>
+                    <span class="font-bold text-gray-900 text-2xl">{{ order.totalAmount | currency }}</span>
+                </div>
+            </div>
+
+            
+
+        </div>
+
+      </div>
+
+
+      <div class="space-y-6">
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <h3 class="font-semibold text-gray-800 mb-4">Customer Details</h3>
+          
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-50 to-blue-100 text-indigo-700 flex items-center justify-center font-bold border border-indigo-100 shadow-sm">
+              {{ order.shipToName.charAt(0) }}
+            </div>
+            <div class="overflow-hidden">
+              <p class="font-bold text-gray-900 text-sm truncate">{{ order.shipToName }}</p>
+              <p class="text-xs text-gray-500 truncate">ID: {{ order.userId }}</p>
+            </div>
+          </div>
+          
+           
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <h3 class="font-semibold text-gray-800 mb-4 flex items-center gap-2">
+            <mat-icon class="text-gray-400 text-sm">local_shipping</mat-icon> 
+            Delivery Address
+          </h3>
+          
+          <div class="text-sm text-gray-600 leading-relaxed bg-slate-50 p-3 rounded-lg border border-slate-100">
+            <p class="font-bold text-gray-800 mb-1">{{ order.shipToName }}</p>
+            <p>{{ order.shipStreet }}</p>
+            <p>{{ order.shipCity }}, {{ order.shipState }} {{ order.shipZipCode }}</p>
+            <p class="font-medium text-gray-700 mt-1">{{ order.shipCountry }}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  } @else {
+    <div class="animate-pulse space-y-8">
+       <div class="h-8 bg-slate-200 rounded w-1/3"></div>
+       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 space-y-6">
+             <div class="h-96 bg-slate-200 rounded-xl"></div>
+             <div class="h-24 bg-slate-200 rounded-xl"></div>
+          </div>
+          <div class="space-y-6">
+             <div class="h-40 bg-slate-200 rounded-xl"></div>
+             <div class="h-40 bg-slate-200 rounded-xl"></div>
+          </div>
+       </div>
+    </div>
+  }
+
+</div>

@@ -1,0 +1,61 @@
+<div class="auth-layout">
+  <div class="navbar mat-elevation-z4">
+    <div class="logo"><span>SwiftCart</span></div>
+    <nav class="flex gap-3 my-2 uppercase text-2xl text-white">
+      <a
+        routerLink="/"
+        class="text-white"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+      <a routerLink="/products" routerLinkActive="active" class="text-white">Products</a>
+      <a routerLink="/checkout" routerLinkActive="active" class="text-white">Checkout</a>
+       
+    </nav>
+    <div class="flex gap-3 align-middle">
+      <a
+        matBadge="{{ cartService.itemCount() }}"
+        routerLink="/cart"
+        routerLinkActive="active"
+        matBadgeSize="large"
+        class="custom-badge mt-2 mr-2"
+      >
+        <mat-icon>shopping_cart</mat-icon>
+      </a>
+      @if (userService.currentUser()) {
+      <div class="px-6">
+        <button mat-button [matMenuTriggerFor]="menu">
+          <mat-icon>arrow_drop_down</mat-icon>
+          <span class="text-white">{{ userService.currentUser()?.email }}</span>
+        </button>
+        <mat-menu #menu="matMenu" class="px-3">
+          <button mat-menu-item routerLink="/cart">
+            <mat-icon>shopping_cart</mat-icon>
+            My cart
+          </button>
+          <button mat-menu-item routerLink="/orders">
+            <mat-icon>history</mat-icon>
+            View Orders
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            Logout
+          </button>
+        </mat-menu>
+      </div>
+      } @else {
+      <button mat-stroked-button routerLink="/login" class="text-white">Login</button>
+      <button mat-stroked-button routerLink="/register" class="text-white">
+        Register
+      </button>
+      }
+    </div>
+  </div>
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- Main content -->

@@ -10,6 +10,9 @@ public interface IOrderRepository
     Task<List<Order>> GetOrdersByUserIdAsync(Guid userId);
     Task<Order?> GetOrderByIdAsync(Guid orderId);
     Task<List<Order>> GetAllOrdersAsync();
+    Task UpdateOrderAsync(Order order);
+    void InitiateCheckout(Order order);
+    void ConfirmPayment(Order order);
 }
 
 

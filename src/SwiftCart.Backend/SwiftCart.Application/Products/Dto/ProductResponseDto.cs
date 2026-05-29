@@ -20,7 +20,6 @@ public class ProductResponseDto
         public string? Color { get; set; }
         public string? Size { get; set; }
         public string? Weight { get; set; }
-        public bool? IsActive { get; set; }
-
+ 
         public List<string>? Images { get; set; }
 }

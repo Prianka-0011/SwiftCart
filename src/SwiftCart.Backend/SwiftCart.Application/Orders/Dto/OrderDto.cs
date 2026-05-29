@@ -37,11 +37,12 @@ public class OrderItemDto
     public int Quantity { get; set; }
     public decimal UnitPrice { get; set; }
     public decimal LineTotal => Quantity * UnitPrice;
+    public List<string> Images { get; set; } = new List<string>();
 }
 
 public class CreateOrderDto
 {
-    public Guid? ShippingAddressId { get; set; }
+    public Guid? AddressId { get; set; }
     public AddressDto? NewAddress { get; set; }
     public bool SaveNewAddress { get; set; }
 }

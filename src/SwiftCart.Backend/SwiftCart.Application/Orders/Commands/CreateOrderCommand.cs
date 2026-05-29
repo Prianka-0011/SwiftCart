@@ -40,9 +40,9 @@ public class CreateOrderCommand : IRequest<Guid>
                 PaymentStatus = Domain.Enums.PaymentStatus.Pending
             };
 
-            if (request.Order.ShippingAddressId.HasValue)
+            if (request.Order.AddressId.HasValue)
             {
-                var savedAddress = await _addressRepo.GetByIdAsync(request.Order.ShippingAddressId.Value);
+                var savedAddress = await _addressRepo.GetByIdAsync(request.Order.AddressId.Value);
                 if (savedAddress == null) throw new InvalidOperationException("Address not found.");
                 if (savedAddress.UserId != request.UserId) throw new UnauthorizedAccessException("Address does not belong to user.");
 

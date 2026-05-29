@@ -25,7 +25,7 @@ static void UpdateDatabase(IApplicationBuilder app)
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
- builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
@@ -55,12 +55,35 @@ app.UseStaticFiles(new StaticFileOptions
 app.UseGlobalExceptionHandler();
 app.UseHttpsRedirection();
 
-
+app.UseCors(x => x
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    .AllowCredentials()
+    .WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+        SwiftCart.Data.DbInitializer.Seed(context);
+
+        var productCount = context.Products.Count();
+        var categoryCount = context.Categories.Count();
+        Console.WriteLine($"[DEBUG CHECK] Database contains {productCount} products and {categoryCount} categories.");
+
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while seeding the database.");
+    }
+}
 
 app.Run();
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)

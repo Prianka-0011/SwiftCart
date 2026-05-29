@@ -21,9 +21,9 @@ namespace SwiftCart.API.Controllers
         }
 
         [HttpGet("getAll")]
-        public async Task<ActionResult> GetProductsAsync()
+        public async Task<ActionResult> GetProductsAsync([FromQuery(Name = "categories")] string[]? categories, string? sort, int page = 1, int pageSize = 12)
         {
-            var result = await Mediator.Send(new GetAllProductsQuery());
+            var result = await Mediator.Send(new GetAllProductsQuery(categories, sort, page, pageSize));
             return Ok(result);
         }
 
@@ -41,7 +41,15 @@ namespace SwiftCart.API.Controllers
             };
 
             var updatedProduct = await Mediator.Send(command);
-            return Ok(updatedProduct );
+            return Ok(updatedProduct);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetProductById(Guid id)
+        {
+            var product = await Mediator.Send(new GetProductQuery(id));
+            if (product == null) return NotFound();
+            return Ok(product);
         }
     }
 }

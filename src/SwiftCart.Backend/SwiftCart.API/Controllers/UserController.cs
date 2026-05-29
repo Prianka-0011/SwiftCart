@@ -5,35 +5,30 @@ using SwiftCart.Application.Dto;
 using SwiftCart.Application.Interfaces.Repositories;
 using SwiftCart.Application.Mappings;
 using SwiftCart.Application.Users.Commands;
-using SwiftCart.Domain.Entities;
+using SwiftCart.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SwiftCart.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController(IUserRepository repo, IMediator mediator) : ControllerBase
+    public class UserController(IUserRepository repo, IMediator mediator, IUserContextService userContext) : BaseController(mediator)
     {
         private readonly IUserRepository _repo = repo;
-        private readonly IMediator _mediator = mediator;
+        private readonly IUserContextService _userContext = userContext;
 
         [HttpPost("register")]
-        public async Task<ActionResult<User>> RegisterUser(User user)
+        public async Task<ActionResult<UserResponseDto>> RegisterUser(RegisterUserDto user)
         {
             if (user == null)
                 return BadRequest("Invalid user payload.");
-
-            var existing = await _repo.GetUserByEmailAsync(user.Email);
-            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
-            user.PasswordHash = hashedPassword;
-            if (existing != null)
+            var result = await Mediator.Send(new RegisterUserCommand
             {
-                return BadRequest("User already registered.");
-            }
-
-            var result = await _repo.CreateUserAsync(user);
-            var response = UserMapper.MapToDto(result);
-            Console.WriteLine("User registered: " + result.PasswordHash);
-            return Ok(response);
+                Username = user.Username,
+                Email = user.Email,
+                Password = user.Password
+            });
+            return Ok(result);
         }
 
         [HttpGet("{email}")]
@@ -49,61 +44,16 @@ namespace SwiftCart.API.Controllers
         [HttpPatch("{email}")]
         public async Task<IActionResult> UpdateUser(string email, [FromBody] UpdateUserDto user)
         {
-            var existing = await _repo.GetUserByEmailAsync(email);
-            if (existing != null)
+            try
             {
-                if (!string.IsNullOrWhiteSpace(user.Username))
-                    existing.Username = user.Username;
-                if (user.Addresses != null && user.Addresses.Count > 0)
-                {
-                    foreach (var addr in user.Addresses)
-                    {
-                        if (addr.Id == null || addr.Id == Guid.Empty)
-                        {
-                            Console.WriteLine("Adding new address for user: " + existing.Email);
-                            var newAddress = new Address
-                            {
-                            
-                                UserId = existing.Id,
-                                FullName = addr.FullName,
-                                Street = addr.Street,
-                                City = addr.City,
-                                State = addr.State,
-                                ZipCode = addr.ZipCode,
-                                Country = addr.Country,
-                                IsDefault = addr.IsDefault ?? false
-                            };
-                            existing.Addresses.Add(newAddress);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Updating address for user: " + existing.Email);
-                            var existingAddress = existing.Addresses.FirstOrDefault(a => a.Id == addr.Id);
-                            if (existingAddress != null)
-                            {
-                                if (!string.IsNullOrWhiteSpace(addr.FullName)) existingAddress.FullName = addr.FullName;
-                                if (!string.IsNullOrWhiteSpace(addr.Street)) existingAddress.Street = addr.Street;
-                                if (!string.IsNullOrWhiteSpace(addr.City)) existingAddress.City = addr.City;
-                                if (!string.IsNullOrWhiteSpace(addr.State)) existingAddress.State = addr.State;
-                                if (!string.IsNullOrWhiteSpace(addr.ZipCode)) existingAddress.ZipCode = addr.ZipCode;
-                                if (!string.IsNullOrWhiteSpace(addr.Country)) existingAddress.Country = addr.Country;
-                                if (addr.IsDefault.HasValue) existingAddress.IsDefault = addr.IsDefault.Value;
-                            }
-                             
-                        }
-                    }
-                }
-
-
-                var result = await _repo.SaveChangeAsync();
-                if(!result) return BadRequest("Failed to update user.");
+                var updated = await Mediator.Send(new UpdateUserCommand { Email = email, User = user });
+                if (!updated) return BadRequest("Failed to update user.");
                 return NoContent();
             }
-            else
+            catch (KeyNotFoundException)
             {
                 return NotFound();
             }
-
         }
 
         [HttpPost("login")]
@@ -111,17 +61,14 @@ namespace SwiftCart.API.Controllers
         {
             try
             {
-                var token = await _mediator.Send(command);
+                var token = await Mediator.Send(command);
 
-                // Secure Cookie Options
                 var cookieOptions = new CookieOptions
                 {
                     HttpOnly = true,
-                    // For local development use false so browsers will send the cookie over HTTP.
-                    // Set to true in production and serve over HTTPS.
                     Secure = false,
-                    SameSite = SameSiteMode.Strict,
-                    Expires = DateTime.UtcNow.AddHours(1)
+                    SameSite = SameSiteMode.Lax,
+                    Expires = DateTime.UtcNow.AddHours(2),
                 };
 
                 Response.Cookies.Append("jwt", token, cookieOptions);
@@ -133,7 +80,33 @@ namespace SwiftCart.API.Controllers
                 return Unauthorized("Invalid Email or Password");
             }
         }
-    
+
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+
+            Response.Cookies.Delete("jwt");
+            return Ok();
+        }
+
+        [HttpGet("me")]
+        [Authorize(Roles = "User,Admin")]
+        public async Task<ActionResult<UserResponseDto>> Me()
+        {
+
+            if (!_userContext.TryGetUserId(out var userId))
+            {
+
+                return Unauthorized();
+            }
+
+            var user = await _repo.GetUserByIdAsync(userId);
+            if (user == null) return NotFound();
+
+            var response = UserMapper.MapToDto(user);
+            return Ok(response);
+        }
+
 
     }
 }

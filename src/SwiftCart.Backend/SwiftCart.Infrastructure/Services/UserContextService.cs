@@ -42,6 +42,7 @@ public class UserContextService(IHttpContextAccessor httpContextAccessor) : IUse
 
         return Guid.TryParse(idStr, out userId);
     }
+     
 
     public Task<(bool Found, Guid UserId)> GetUserIdAsync()
     {

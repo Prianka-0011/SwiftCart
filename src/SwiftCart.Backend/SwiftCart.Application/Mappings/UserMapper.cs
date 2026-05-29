@@ -1,3 +1,4 @@
+using System.Linq;
 using SwiftCart.Application.Dto;
 using SwiftCart.Domain.Entities;
 
@@ -13,6 +14,7 @@ namespace SwiftCart.Application.Mappings
                 Id = user.Id,
                 Username = user.Username,
                 Email = user.Email,
+                Role = user.Role.ToString(),
                 CreatedAt = user.CreatedAt,
                 Addresses = user.Addresses.Select(a => new AddressDto
                 {

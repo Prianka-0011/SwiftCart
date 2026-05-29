@@ -35,7 +35,7 @@ namespace SwiftCart.API.Controllers
         }
 
         [HttpGet]
-        // [Authorize]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> GetCart()
         {
             if (!_userContext.TryGetUserId(out var userId))

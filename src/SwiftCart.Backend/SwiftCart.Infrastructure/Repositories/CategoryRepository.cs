@@ -12,6 +12,8 @@ public class CategoryRepository(AppDbContext context) : ICategoryRepository
 {
     private readonly AppDbContext _context = context;
 
+    
+
     public async Task<Category?> CreateCategoryAsync(Category category)
     {
         _context.Categories.Add(category);
@@ -29,6 +31,11 @@ public class CategoryRepository(AppDbContext context) : ICategoryRepository
     public async Task<Category?> GetCategoryByNameAsync(string name)
     {
         return await _context.Categories.Include(x => x.SubCategories).FirstOrDefaultAsync(x => x.Name == name);
+    }
+
+    public async Task<IReadOnlyList<Category>> GetAllCategoriesAsync()
+    {
+        return await _context.Categories.ToListAsync();
     }
 
 

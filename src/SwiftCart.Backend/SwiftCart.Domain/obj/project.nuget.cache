@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "w1WPwh1n1L0=",
+  "dgSpecHash": "0Fk7BliRzOg=",
   "success": true,
   "projectFilePath": "P:\\SwiftCart\\src\\SwiftCart.Backend\\SwiftCart.Domain\\SwiftCart.Domain.csproj",
   "expectedPackageFiles": [
@@ -21,7 +21,10 @@
     "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\microsoft.extensions.logging\\9.0.11\\microsoft.extensions.logging.9.0.11.nupkg.sha512",
     "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\9.0.11\\microsoft.extensions.logging.abstractions.9.0.11.nupkg.sha512",
     "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\microsoft.extensions.options\\9.0.11\\microsoft.extensions.options.9.0.11.nupkg.sha512",
-    "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.11\\microsoft.extensions.primitives.9.0.11.nupkg.sha512"
+    "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\microsoft.extensions.primitives\\9.0.11\\microsoft.extensions.primitives.9.0.11.nupkg.sha512",
+    "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\microsoft.netcore.app.ref\\9.0.14\\microsoft.netcore.app.ref.9.0.14.nupkg.sha512",
+    "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\9.0.14\\microsoft.windowsdesktop.app.ref.9.0.14.nupkg.sha512",
+    "C:\\Users\\Rafikul Islam Hriday\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\9.0.14\\microsoft.aspnetcore.app.ref.9.0.14.nupkg.sha512"
   ],
   "logs": []
 }

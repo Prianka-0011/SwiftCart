@@ -29,7 +29,6 @@ public enum PaymentStatus
 public enum PaymentMethod
 {
     Card,
-    PayPal,
     CashOnDelivery
 }
 

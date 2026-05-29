@@ -227,6 +227,37 @@ namespace SwiftCart.Infrastructure.Migrations
                     b.ToTable("OrderItems");
                 });
 
+            modelBuilder.Entity("SwiftCart.Domain.Entities.Payment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Method")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("PaidAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TransactionId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Payments");
+                });
+
             modelBuilder.Entity("SwiftCart.Domain.Entities.Product", b =>
                 {
                     b.Property<Guid>("Id")
@@ -454,6 +485,17 @@ namespace SwiftCart.Infrastructure.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("SwiftCart.Domain.Entities.Payment", b =>
+                {
+                    b.HasOne("SwiftCart.Domain.Entities.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("SwiftCart.Domain.Entities.Product", b =>

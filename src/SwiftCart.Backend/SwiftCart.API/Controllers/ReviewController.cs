@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SwiftCart.Application.Interfaces;
 using SwiftCart.Application.Reviews.Commands;
 using SwiftCart.Application.Reviews.Dto;
+using SwiftCart.Application.Reviews.Queries;
 
 namespace SwiftCart.API.Controllers
 {
@@ -16,15 +17,20 @@ namespace SwiftCart.API.Controllers
         private readonly IUserContextService _userContext = userContext;
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> AddReview([FromBody] AddReviewDto dto)
         {
             if (!_userContext.TryGetUserId(out var userId)) return Unauthorized();
 
             var result = await _mediator.Send(new AddReviewCommand { UserId = userId, ReviewData = dto });
             return Ok(result);
+        }
 
-
+        [HttpGet("{productId}")]
+        public async Task<IActionResult> GetReviewsByProductId(Guid productId)
+        {
+            var result = await _mediator.Send(new GetProductReviews(productId));
+            return Ok(result);
         }
     }
 }

@@ -18,8 +18,10 @@ public class RequestCartDto
 public class CartItemDto
 {
     public Guid ProductId { get; set; }
+    public List<string>? Images { get; set; }
     public required string ProductName { get; set; }
     public int Quantity { get; set; }
     public decimal UnitPrice { get; set; }
     public decimal? LineTotal => Quantity * UnitPrice;
 }
+ 

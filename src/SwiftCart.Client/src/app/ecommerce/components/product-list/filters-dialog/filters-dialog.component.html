@@ -1,0 +1,20 @@
+<div class="w-96">
+  <div class="px-6 pt-6">
+    <h3 class="text-2xl font-semibold text-gray-900 text-center">Filters</h3>
+  </div>
+  <mat-divider></mat-divider>
+
+  <div class="p-4">
+    <div class="w-full">
+      <h4 class="font-semibold text-sm text-gray-700 mb-2">Categories</h4>
+      <mat-selection-list class="bg-white rounded-lg border border-gray-100 shadow-sm p-2" [(ngModel)]="selectedCategories" [multiple]="true">
+        <mat-list-option *ngFor="let brand of productService.categories" [value]="brand">{{ brand }}</mat-list-option>
+      </mat-selection-list>
+    </div>
+  </div>
+
+  <div class="flex justify-end items-center gap-3 px-4 pb-4">
+    <button mat-button (click)="applyFilters()" class="px-4 py-2 bg-indigo-600 text-white rounded-md shadow">Apply</button>
+    <button mat-button (click)="close()" class="px-4 py-2 text-gray-600">Cancel</button>
+  </div>
+</div>
